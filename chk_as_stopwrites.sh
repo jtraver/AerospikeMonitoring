@@ -51,7 +51,7 @@ NS=`/usr/bin/clinfo -v namespaces -h $HOSTNAME | tail -n 1 | cut -d" " -f 4 | tr
 msg="OK"
 
 for i in $NS; do
-  output=`/usr/bin/clinfo -v namespace/$i -h $HOSTNAME | cut -d\; -f 14 | cut -d\= -f 2 | tail -n 1`
+  output=`/usr/bin/clinfo -v namespace/$i -h $HOSTNAME | grep -o "stop-writes=[a-z]*" | cut -d"=" -f2`
 
   if [[ ! $output == "true" ]] && [[ ! $output == "false" ]]; then
     echo "CRITICAL - Aerospike connection error"
